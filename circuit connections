@@ -1,0 +1,59 @@
+# Node - A
+                     +-----------------------+
+                     |   ESP32-C6 SuperMini  |
+                     |   (Local Node A)      |
+                     +-----------------------+
+                       |   |   |   |   |   |
+      +----------------+   |   |   |   |   +----------------+
+      | (GPIO 18)          |   |   |   |            (5V)    |
+      v                    v   v   v   v                    v
++--------------+        +-----------------+         +---------------+
+| MOSFET Gate  |        | GPIO 19  GPIO 20|         | Relay VCC     |
+| (PWM Load)   |        +-----------------+         +---------------+
++--------------+            |        |
+                            v        v
+                     +------------+ +------------+
+                     | Relay IN   | | Status LED |
+                     +------------+ +------------+
+                            ^
+                            | (GPIO 2)
+                     +------------+
+                     | PushButton |
+                     +------------+
+# Node - B
+                     +-----------------------+
+                     |   ESP32-C6 SuperMini  |
+                     |   (Remote Node B)     |
+                     +-----------------------+
+                       |   |   |   |   |   |
+      +----------------+   |   |   |   |   +----------------+
+      | (GPIO 18)          |   |   |   |            (5V)    |
+      v                    v   v   v   v                    v
++--------------+        +-----------------+         +---------------+
+| MOSFET Gate  |        | GPIO 19  GPIO 20|         | Relay VCC     |
+| (PWM Load)   |        +-----------------+         +---------------+
++--------------+            |        |
+                            v        v
+                     +------------+ +------------+
+                     | Relay IN   | | Status LED |
+                     +------------+ +------------+
+                            ^
+                            | (GPIO 2)
+                     +------------+
+                     | PushButton |
+                     +------------+
+### 🔌 Hardware Pinout & Wiring Connections
+
+| Component | Component Pin | ESP32-C6 Pin | Connection Notes & Function |
+| :--- | :--- | :--- | :--- |
+| **MOSFET Module** | Gate (SIG) | **GPIO 18** | Drives PWM signal for variable load dimming / throttling (LED / Fan)[cite: 1] |
+| | VCC / GND | External / GND | Connected to external load power supply circuit |
+| **5V Relay Module** | IN (Signal) | **GPIO 19** | Acts as main circuit breaker drive (High-Impedance Active-Low)[cite: 1] |
+| | VCC | **5V / VBUS** | Powered via 5V line from USB-C supply[cite: 1] |
+| | GND | **GND** | Connected to common system ground |
+| **Push Button** | Terminal 1 | **GPIO 2** | Short Press = Mesh Relief; Long Press = Blackout Toggle[cite: 1] |
+| | Terminal 2 | **GND** | Configured with internal `PULLUP` resistor |
+| **Status LED** | Anode (+) | **GPIO 20** | Visual indicator for Thread mesh network attachment[cite: 1] |
+| | Cathode (-) | **GND** | Connected via 220Ω current-limiting resistor |
+
+> **Note:** Both **Node 1** (Local Load Controller) and **Node 2** (Remote Mesh Responder) share the exact same hardware pinout setup for consistent peer-to-peer mesh operation[cite: 1]. Ensure all ground (GND) lines across power supplies, modules, and microcontrollers are tied to a common ground point.
