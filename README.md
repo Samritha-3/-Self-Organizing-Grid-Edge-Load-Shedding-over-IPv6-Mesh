@@ -25,6 +25,8 @@ Modern power grids face severe strain during peak demand. Rather than relying on
    - **Aesthetic Log Formatting:** Automatically colorizes log prefixes (`[net]`, `[relay]`, `[monitor]`), prepends local timestamps, and maintains auto-scrolling.
    - **WebSocket Bridge Server:** A Python server (`server.py`) relays incoming IPv6 UDP multicast state events to the HTML dashboard for real-time visual UI updates (SVG load gauge, event tables).
 
+For detailed pinout tables and wiring schematics, see [CIRCUIT_CONNECTIONS.md](./CIRCUIT_CONNECTIONS.md).
+
 ---
 
 ## 🏗️ System Architecture
@@ -41,3 +43,5 @@ Modern power grids face severe strain during peak demand. Rather than relying on
   |               HTML/JS Web Dashboard               | <===========> |   Python Bridge Server  |
   |  (Web Serial Console / Gauge / Live Log Table)    |  (WebSocket)  |   (server.py)           |
   +---------------------------------------------------+               +-------------------------+
+
+
