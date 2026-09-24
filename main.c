@@ -17,10 +17,10 @@ void relayClose() { pinMode(RELAY_PIN, OUTPUT); digitalWrite(RELAY_PIN, LOW); }
 void relayOpen()  { pinMode(RELAY_PIN, INPUT); }
 
 // ---------------- Networking & UDP ----------------
-const char *MULTICAST_ADDR_STR = "ff03::1";
-const uint16_t UDP_PORT = 1234;
+const char *MULTICAST_ADDR_STR = "ff03::1"; //muticast address ::1->identifier for all nodes
+const uint16_t UDP_PORT = 1234; //any number is fine but 1234 is easier for debugging 
 
-static otUdpSocket sUdpSocket;
+static otUdpSocket sUdpSocket; //sUdpSocket will be bound to this specific UDP_PORT. This tells the OpenThread system: "If any UDP packet arrives addressed to port 1234, hand it over to my custom handleUdpReceive function."
 static bool socketOpened = false;
 
 // ---------------- RTOS primitives ----------------
